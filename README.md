@@ -83,8 +83,9 @@ Grafana доступна по адресу: http://localhost:3000
 
 ## Задание 2 — Dashboard и PromQL запросы
 
-# PromQL запросы для панелей
-    Панель	PromQL запрос
+### PromQL запросы для панелей
+
+   Панель PromQL запрос
     
     Утилизация CPU (%)	100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
     Load Average 1/5/15	node_load1, node_load5, node_load15
@@ -95,7 +96,7 @@ Grafana доступна по адресу: http://localhost:3000
 <img width="1492" height="800" alt="2" src="https://github.com/user-attachments/assets/f8159ab1-b2e4-4a18-9e0c-ce54a833c342" />
    
 ## Задание 3 — Alert Rules и уведомления в Telegram
-# Настроенные алерты
+### Настроенные алерты
 
     Название алерта	Запрос	Условие	Период ожидания	Severity
     
@@ -114,7 +115,7 @@ Grafana доступна по адресу: http://localhost:3000
 
 ## Задание 4 — JSON модель Dashboard
 
-# Файл дашборда экспортирован и сохранён как dashboard.json.
+### Файл дашборда экспортирован и сохранён как dashboard.json.
 
 Содержимое файла dashboard.json
 
