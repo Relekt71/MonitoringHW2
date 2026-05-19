@@ -70,7 +70,7 @@
     
     bash
     cd monitoring
-    docker-compose up -d
+    docker compose up -d
 
 Результат
 
