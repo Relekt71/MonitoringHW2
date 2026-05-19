@@ -1,4 +1,4 @@
-<img width="1505" height="501" alt="1" src="https://github.com/user-attachments/assets/54abaddb-b3ac-4afd-a382-ec39c6633599" /># Домашнее задание к занятию 14 «Средство визуализации Grafana»
+# Домашнее задание к занятию 14 «Средство визуализации Grafana»
 
 ## Задание 1 — Подключение Datasource
 
