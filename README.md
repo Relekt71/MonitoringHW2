@@ -6,70 +6,62 @@
 
 **Файл `docker-compose.yml`**:
 
-    ```yaml
-    version: '3.8'
-
-    services:
-    prometheus:
+       services:
+      prometheus:
         image: prom/prometheus:latest
         container_name: prometheus
         volumes:
-        - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-        - prometheus_data:/prometheus
+          - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+          - prometheus_data:/prometheus
         ports:
-        - "9090:9090"
+          - "9090:9090"
         command:
-        - '--config.file=/etc/prometheus/prometheus.yml'
-        - '--storage.tsdb.path=/prometheus'
+          - '--config.file=/etc/prometheus/prometheus.yml'
+          - '--storage.tsdb.path=/prometheus'
         networks:
-        - monitoring
-
-    node-exporter:
+          - monitoring
+        restart: unless-stopped
+    
+      node-exporter:
         image: prom/node-exporter:latest
         container_name: node-exporter
         ports:
-        - "9100:9100"
+          - "9100:9100"
         networks:
-        - monitoring
-
-    grafana:
+          - monitoring
+        restart: unless-stopped
+    
+      grafana:
         image: grafana/grafana:latest
         container_name: grafana
         ports:
-        - "3000:3000"
+          - "3000:3000"
         environment:
-        - GF_SECURITY_ADMIN_PASSWORD=admin
+          - GF_SECURITY_ADMIN_USER=admin
+          - GF_SECURITY_ADMIN_PASSWORD=admin
+          - GF_INSTALL_PLUGINS=grafana-clock-panel
         volumes:
-        - grafana_data:/var/lib/grafana
+          - grafana_data:/var/lib/grafana
+          - ./grafana/provisioning:/etc/grafana/provisioning
         dns:
-        - 8.8.8.8
-        - 8.8.4.4
+          - 8.8.8.8
+          - 8.8.4.4
         networks:
-        - monitoring
-
-    volumes:
-    prometheus_data:
-    grafana_data:
-
+          - monitoring
+        restart: unless-stopped
+        depends_on:
+          - prometheus
+    
     networks:
-    monitoring:
+      monitoring:
         driver: bridge
-
-    Файл prometheus/prometheus.yml:
-    yaml
-
-    global:
-    scrape_interval: 15s
-
-    scrape_configs:
-    - job_name: 'node-exporter'
-        static_configs:
-        - targets: ['node-exporter:9100']
+    
+    volumes:
+      prometheus_data:
+      grafana_data:
 
 Запуск
     
-    bash
-    cd monitoring
     docker compose up -d
 
 Результат
